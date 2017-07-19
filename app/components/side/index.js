@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {
     View
 } from 'react-native'
-import Header from './head.js'
+import Header from './header'
 
 class Side extends Component {
     render() {

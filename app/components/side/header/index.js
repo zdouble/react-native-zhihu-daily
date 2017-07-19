@@ -1,17 +1,9 @@
 import React from 'react'
 import {
     View,
-    Text,
-    Image,
     StyleSheet
 } from 'react-native'
-
-const User = () => (
-    <View>
-        <Image />
-        <Text>请登录</Text>
-    </View>
-)
+import User from './user.js'
 
 const Header = () => (
     <View style={styles.container}>

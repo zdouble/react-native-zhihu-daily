@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {
-    View
+    ScrollView
 } from 'react-native'
 import Header from './header'
 import TypeList from './type-list'
@@ -8,10 +8,12 @@ import TypeList from './type-list'
 class Side extends Component {
     render() {
         return (
-            <View>
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+            >
                 <Header />
-                <TypeList />
-            </View>
+                <TypeList {...this.props} />
+            </ScrollView>
         )
     }
 }

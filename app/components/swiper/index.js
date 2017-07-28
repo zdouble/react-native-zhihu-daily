@@ -12,17 +12,17 @@ const SwiperC = ({ data }) => {
         <Image
             source={{ uri: item.image }}
             key={item}
-            style={styles.slide1}
+            style={styles.slide}
         >
             <Text style={styles.text}>{item.title}</Text>
         </Image>
     )
     return (
         <Swiper
-            loop={false}
             height={200}
-            paginationStyle={{bottom: 5}}
+            paginationStyle={{ bottom: 5 }}
             dotColor="#fff"
+            autoplay
         >
             {item}
         </Swiper>
@@ -33,15 +33,19 @@ const styles = StyleSheet.create({
     wrapper: {
         height: 200
     },
-    slide1: {
+    slide: {
         justifyContent: 'center',
         alignItems: 'center',
         width: null,
-        height: 200
+        height: 200,
+        paddingHorizontal: 10,
+        position: 'relative'
     },
     text: {
         color: '#fff',
-        fontSize: 16
+        fontSize: 16,
+        position: 'absolute',
+        bottom: 20
     }
 })
 

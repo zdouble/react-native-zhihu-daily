@@ -7,7 +7,7 @@ import {
     FlatList
 } from 'react-native'
 import Swiper from './../../components/swiper'
-import ListItem from './list-item.js'
+import List from './list'
 import { getLastNews } from '../../api'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
@@ -26,10 +26,10 @@ class Home extends Component {
         })
     }
 
-    _renderItem(item, index) {
+    _renderItem({ item, index }) {
         let date = moment(item.date).format('MM月DD日 dddd')
         return (
-            <ListItem date={index === 0 ? '今日热闻' : date} data={item.stories} />
+            <List date={index === 0 ? '今日热闻' : date} data={item.stories} />
         )
     }
 
@@ -37,7 +37,6 @@ class Home extends Component {
 
     render() {
         let data = this.state.data
-        console.log(data)
         if (!data.length) {
             return <View><Text>fasfas</Text></View>
         }

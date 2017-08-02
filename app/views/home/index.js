@@ -6,6 +6,7 @@ import {
     TouchableHighlight,
     FlatList
 } from 'react-native'
+import Header from '../../components/header'
 import Swiper from './../../components/swiper'
 import List from './list'
 import { getLastNews } from '../../api'
@@ -42,12 +43,15 @@ class Home extends Component {
         }
         let { top_stories: topStories } = data[0]
         return (
-            <FlatList
-                data={data}
-                ListHeaderComponent={() => <Swiper data={topStories} />}
-                renderItem={this._renderItem}
-                keyExtractor={this._keyExtractor}
-            />
+            <View>
+                <Header/>
+                <FlatList
+                    data={data}
+                    ListHeaderComponent={() => <Swiper data={topStories} />}
+                    renderItem={this._renderItem}
+                    keyExtractor={this._keyExtractor}
+                />
+            </View>
         )
     }
 }

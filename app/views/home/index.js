@@ -43,7 +43,7 @@ class Home extends Component {
         }
         let { top_stories: topStories } = data[0]
         return (
-            <View>
+            <View style={styles.container}>
                 <Header/>
                 <FlatList
                     data={data}
@@ -57,7 +57,9 @@ class Home extends Component {
 }
 
 const styles = StyleSheet.create({
-
+    container: {
+        flex: 1
+    }
 })
 
 export default Home

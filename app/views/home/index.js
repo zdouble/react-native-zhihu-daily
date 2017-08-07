@@ -44,7 +44,7 @@ class Home extends Component {
         let { top_stories: topStories } = data[0]
         return (
             <View style={styles.container}>
-                <Header/>
+                <Header openDrawer={() => this.props.navigation.navigate('DrawerOpen')} />
                 <FlatList
                     data={data}
                     ListHeaderComponent={() => <Swiper data={topStories} />}

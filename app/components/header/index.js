@@ -11,12 +11,14 @@ class Header extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <View>
-                    <TouchableOpacity>
-                        <image />
+                <View style={{paddingLeft: 10}}>
+                    <TouchableOpacity onPress={this.props.openDrawer} style={{ marginTop: -10 }}>
+                        <Image source={require('../../assets/images/abc_textfield_search_activated_mtrl_alpha.9.png')} style={{ width: 36, height: 10 }} />
+                        <Image source={require('../../assets/images/abc_textfield_search_activated_mtrl_alpha.9.png')} style={{ width: 36, height: 10 }} />
+                        <Image source={require('../../assets/images/abc_textfield_search_activated_mtrl_alpha.9.png')} style={{ width: 36, height: 10 }} />
                     </TouchableOpacity>
                 </View>
-                <View>
+                <View style={{ flex: 1 }}>
                     <Text>首页</Text>
                 </View>
                 <View></View>
@@ -28,7 +30,9 @@ class Header extends Component {
 const styles = StyleSheet.create({
     container: {
         height: 50,
-        backgroundColor: '#00acea'
+        backgroundColor: '#00acea',
+        flexDirection: 'row',
+        alignItems: 'center'
     }
 })
 

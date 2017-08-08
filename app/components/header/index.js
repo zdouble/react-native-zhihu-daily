@@ -19,7 +19,9 @@ class Header extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={{ flex: 1 }}>
-                    <Text>首页</Text>
+                    <View style={{paddingLeft: 20}}>
+                        <Text style={{color: '#fff', fontSize: 18}}>首页</Text>
+                    </View>
                 </View>
                 <View></View>
             </View>

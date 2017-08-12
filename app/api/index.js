@@ -8,7 +8,12 @@ const getLastNews = () => {
     return get('/4/news/latest')
 }
 
+const getBeforeNews = (date) => {
+    return get(`/4/news/before/${date}`)
+}
+
 export {
     getTypeList,
-    getLastNews
+    getLastNews,
+    getBeforeNews
 }

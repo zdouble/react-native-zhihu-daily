@@ -7,7 +7,7 @@ import {
 } from 'react-native'
 import Swiper from 'react-native-swiper'
 
-const SwiperC = ({ data }) => {
+const SwiperC = ({ data, style }) => {
     const item = data.map(item =>
         <Image
             source={{ uri: item.image }}
@@ -18,14 +18,16 @@ const SwiperC = ({ data }) => {
         </Image>
     )
     return (
-        <Swiper
-            height={200}
-            paginationStyle={{ bottom: 5 }}
-            dotColor="#fff"
-            autoplay
-        >
-            {item}
-        </Swiper>
+        <View style={style}>
+            <Swiper
+                height={200}
+                paginationStyle={{ bottom: 5 }}
+                dotColor="#fff"
+                autoplay
+            >
+                {item}
+            </Swiper>
+        </View>
     )
 }
 

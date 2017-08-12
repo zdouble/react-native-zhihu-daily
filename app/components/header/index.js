@@ -12,27 +12,11 @@ class Header extends Component {
         return (
             <View style={styles.container}>
                 <View style={{ paddingLeft: 10 }}>
-                    <TouchableOpacity
-                        onPress={this.props.openDrawer}
-                        style={{ marginTop: -10 }}
-                    >
-                        <Image
-                            source={require('../../assets/images/abc_textfield_search_activated_mtrl_alpha.9.png')}
-                            style={{ width: 36, height: 10 }}
-                        />
-                        <Image
-                            source={require('../../assets/images/abc_textfield_search_activated_mtrl_alpha.9.png')}
-                            style={{ width: 36, height: 10 }}
-                        />
-                        <Image
-                            source={require('../../assets/images/abc_textfield_search_activated_mtrl_alpha.9.png')}
-                            style={{ width: 36, height: 10 }}
-                        />
-                    </TouchableOpacity>
+
                 </View>
                 <View style={{ flex: 1 }}>
                     <View style={{ paddingLeft: 20 }}>
-                        <Text style={{ color: '#fff', fontSize: 18 }}>首页</Text>
+                        <Text style={{ color: '#fff', fontSize: 18 }}>{this.props.title}</Text>
                     </View>
                 </View>
                 <View>

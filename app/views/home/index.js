@@ -3,11 +3,13 @@ import {
     View,
     Text,
     StyleSheet,
-    FlatList
+    FlatList,
+    RefreshControl
 } from 'react-native'
 import Header from '../../components/header'
 import Swiper from './../../components/swiper'
 import List from './list'
+// import Loading from '../../components/loading'
 import { getLastNews, getBeforeNews } from '../../api'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
@@ -17,14 +19,25 @@ class Home extends Component {
         super(props)
         this.state = {
             data: [],
-            page: 0
+            page: 0,
+            refreshing: false
         }
     }
 
     componentDidMount() {
+        this.fetchData()
+    }
+
+    fetchData() {
+        this.setState({page: 0, refreshing: true})
         getLastNews().then(res => {
-            this.setState({ data: [res] })
+            console.log(res)
+            this.setState({ refreshing: false, data: [res] })
         })
+    }
+
+    _onRefresh = () => {
+        this.fetchData()
     }
 
     _renderItem({ item, index }) {
@@ -68,6 +81,13 @@ class Home extends Component {
                     renderItem={this._renderItem}
                     keyExtractor={this._keyExtractor}
                     onEndReached={() => this._onEndReached()}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={this._onRefresh}
+                            colors={['#3e9ce9']}
+                        />
+                    }
                     onEndReachedThreshold={0.1}
                 />
             </View>

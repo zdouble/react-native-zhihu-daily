@@ -9,7 +9,7 @@ import {
 import Header from '../../components/header'
 import Swiper from './../../components/swiper'
 import List from './list'
-// import Loading from '../../components/loading'
+import Loading from '../../components/loading'
 import { getLastNews, getBeforeNews } from '../../api'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
@@ -89,6 +89,7 @@ class Home extends Component {
                         />
                     }
                     onEndReachedThreshold={0.1}
+                    ListFooterComponent={() => <Loading/>}
                 />
             </View>
         )

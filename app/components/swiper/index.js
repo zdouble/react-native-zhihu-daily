@@ -1,34 +1,41 @@
-import React from 'react'
+import React, { Component } from 'react'
 import {
     View,
     Text,
     Image,
-    StyleSheet
+    StyleSheet,
+    Dimensions,
+    ScrollView
 } from 'react-native'
-import Swiper from 'react-native-swiper'
 
-const SwiperC = ({ data, style }) => {
-    const item = data.map(item =>
-        <Image
-            source={{ uri: item.image }}
-            key={item}
-            style={styles.slide}
-        >
-            <Text style={styles.text}>{item.title}</Text>
-        </Image>
-    )
-    return (
-        <View style={style}>
-            <Swiper
-                height={200}
-                paginationStyle={{ bottom: 5 }}
-                dotColor="#fff"
-                autoplay
+const screenWidth = Dimensions.get('window').width
+
+class Swiper extends Component {
+    _renderPage(data) {
+        console.log(data)
+        return data.map(item => (
+            <Image
+                source={{ uri: item.image }}
+                style={styles.slide}
+                key={item.id}
+            >
+                <Text style={styles.text}>{item.title}</Text>
+            </Image>
+        ))
+    }
+    render() {
+        let item = this._renderPage(this.props.data)
+        return (
+            <ScrollView
+                contentContainerStyle={[this.props.style, styles.wrapper]}
+                horizontal
+                pagingEnabled
+                showsHorizontalScrollIndicator={false}
             >
                 {item}
-            </Swiper>
-        </View>
-    )
+            </ScrollView>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
@@ -38,8 +45,8 @@ const styles = StyleSheet.create({
     slide: {
         justifyContent: 'center',
         alignItems: 'center',
-        width: null,
-        height: 200,
+        width: screenWidth,
+        flex: 1,
         paddingHorizontal: 10,
         position: 'relative'
     },
@@ -51,4 +58,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default SwiperC
+export default Swiper

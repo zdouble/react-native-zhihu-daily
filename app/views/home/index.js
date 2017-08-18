@@ -31,7 +31,6 @@ class Home extends Component {
     fetchData() {
         this.setState({page: 0, refreshing: true})
         getLastNews().then(res => {
-            console.log(res)
             this.setState({ refreshing: false, data: [res] })
         })
     }

@@ -11,8 +11,13 @@ import {
 const screenWidth = Dimensions.get('window').width
 
 class Swiper extends Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            page: 0
+        }
+    }
     _renderPage(data) {
-        console.log(data)
         return data.map(item => (
             <Image
                 source={{ uri: item.image }}
@@ -28,7 +33,7 @@ class Swiper extends Component {
         let dotList = []
         for (let i = 0; i < length; i++) {
             dotList.push((
-                <View key={i} style={styles.dot}></View>
+                <View key={i} style={[styles.dot, this.state.page === i && styles.dotActive]}></View>
             ))
         }
 
@@ -38,6 +43,14 @@ class Swiper extends Component {
             </View>
         )
     }
+    test = (e) => {
+        let { layoutMeasurement, contentSize, contentOffset } = e.nativeEvent
+        this.setState({
+            page: contentOffset.x / contentSize.width * (contentSize.width / layoutMeasurement.width)
+        })
+        console.log(e)
+        console.log(e.nativeEvent)
+    }
     render() {
         let item = this._renderPage(this.props.data)
         return (
@@ -46,6 +59,7 @@ class Swiper extends Component {
                     horizontal
                     pagingEnabled
                     showsHorizontalScrollIndicator={false}
+                    onMomentumScrollEnd={this.test}
                 >
                     {item}
                 </ScrollView>
@@ -81,6 +95,9 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255,255,255,0.5)',
         borderRadius: 4,
         marginRight: 3
+    },
+    dotActive: {
+        backgroundColor: '#fff'
     },
     dotWrap: {
         position: 'absolute',

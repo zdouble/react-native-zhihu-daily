@@ -9,6 +9,9 @@ import {
 } from 'react-native'
 
 const screenWidth = Dimensions.get('window').width
+let timer = null
+let swiperItemWidth = 0
+let swiperItemLength = 0
 
 class Swiper extends Component {
     constructor(props) {
@@ -43,23 +46,45 @@ class Swiper extends Component {
             </View>
         )
     }
-    test = (e) => {
+    _onMomentumScrollEnd = (e) => {
         let { layoutMeasurement, contentSize, contentOffset } = e.nativeEvent
         this.setState({
             page: contentOffset.x / contentSize.width * (contentSize.width / layoutMeasurement.width)
         })
-        console.log(e)
-        console.log(e.nativeEvent)
     }
+    autoPlay() {
+        timer = setInterval(() => {
+            this.setState({
+                page: ++this.state.page % swiperItemLength
+            }, () => {
+                console.log((this.state.page % swiperItemLength) * swiperItemWidth)
+                this.swiper.scrollTo({x: (this.state.page % swiperItemLength) * swiperItemWidth, animated: true})
+            })
+        }, 3000)
+    }
+    componentDidMount() {
+        swiperItemLength = this.props.data.length
+        this.autoPlay()
+    }
+    _onContentSizeChange = (contentWidth, contentHeight) => {
+        swiperItemWidth = contentWidth / this.props.data.length
+    }
+
+    componentWillUnmount() {
+        clearInterval(timer)
+    }
+
     render() {
         let item = this._renderPage(this.props.data)
         return (
             <View style={[this.props.style, styles.wrapper]}>
                 <ScrollView
+                    onContentSizeChange={this._onContentSizeChange}
+                    ref={ref => { this.swiper = ref }}
                     horizontal
                     pagingEnabled
                     showsHorizontalScrollIndicator={false}
-                    onMomentumScrollEnd={this.test}
+                    onMomentumScrollEnd={this._onMomentumScrollEnd}
                 >
                     {item}
                 </ScrollView>

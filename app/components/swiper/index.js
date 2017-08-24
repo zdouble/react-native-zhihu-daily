@@ -63,8 +63,10 @@ class Swiper extends Component {
         }, 3000)
     }
     componentDidMount() {
-        swiperItemLength = this.props.data.length
-        this.autoPlay()
+        if (this.props.autoPlay) {
+            swiperItemLength = this.props.data.length
+            this.autoPlay()
+        }
     }
     _onContentSizeChange = (contentWidth, contentHeight) => {
         swiperItemWidth = contentWidth / this.props.data.length

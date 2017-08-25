@@ -76,7 +76,7 @@ class Home extends Component {
                 />
                 <FlatList
                     data={data}
-                    ListHeaderComponent={() => <Swiper style={{marginBottom: 10}} data={topStories} />}
+                    ListHeaderComponent={() => <Swiper autoPlay style={{marginBottom: 10}} data={topStories} />}
                     renderItem={this._renderItem}
                     keyExtractor={this._keyExtractor}
                     onEndReached={() => this._onEndReached()}

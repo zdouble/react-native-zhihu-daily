@@ -57,7 +57,6 @@ class Swiper extends Component {
             this.setState({
                 page: ++this.state.page % swiperItemLength
             }, () => {
-                console.log((this.state.page % swiperItemLength) * swiperItemWidth)
                 this.swiper.scrollTo({x: (this.state.page % swiperItemLength) * swiperItemWidth, animated: true})
             })
         }, 3000)
@@ -76,6 +75,18 @@ class Swiper extends Component {
         clearInterval(timer)
     }
 
+    _onScrollBeginDrag = () => {
+        if (this.props.autoPlay) {
+            clearInterval(timer)
+        }
+    }
+
+    _onScrollEndDrag = () => {
+        if (this.props.autoPlay) {
+            this.autoPlay()
+        }
+    }
+
     render() {
         let item = this._renderPage(this.props.data)
         return (
@@ -87,6 +98,8 @@ class Swiper extends Component {
                     pagingEnabled
                     showsHorizontalScrollIndicator={false}
                     onMomentumScrollEnd={this._onMomentumScrollEnd}
+                    onScrollBeginDrag={this._onScrollBeginDrag}
+                    onScrollEndDrag={this._onScrollEndDrag}
                 >
                     {item}
                 </ScrollView>

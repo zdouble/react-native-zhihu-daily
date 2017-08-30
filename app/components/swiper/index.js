@@ -32,14 +32,13 @@ class Swiper extends Component {
         ))
     }
 
-    _renderDot(length) {
+    _renderDot() {
         let dotList = []
-        for (let i = 0; i < length; i++) {
+        for (let i = 0; i < swiperItemLength; i++) {
             dotList.push((
                 <View key={i} style={[styles.dot, this.state.page === i && styles.dotActive]}></View>
             ))
         }
-
         return (
             <View style={styles.dotWrap}>
                 {dotList}
@@ -48,6 +47,7 @@ class Swiper extends Component {
     }
     _onMomentumScrollEnd = (e) => {
         let { layoutMeasurement, contentSize, contentOffset } = e.nativeEvent
+
         this.setState({
             page: contentOffset.x / contentSize.width * (contentSize.width / layoutMeasurement.width)
         })
@@ -59,11 +59,14 @@ class Swiper extends Component {
             }, () => {
                 this.swiper.scrollTo({x: (this.state.page % swiperItemLength) * swiperItemWidth, animated: true})
             })
-        }, 3000)
+        }, 2000)
+    }
+
+    componentWillMount() {
+        swiperItemLength = this.props.data.length
     }
     componentDidMount() {
         if (this.props.autoPlay) {
-            swiperItemLength = this.props.data.length
             this.autoPlay()
         }
     }
@@ -103,7 +106,7 @@ class Swiper extends Component {
                 >
                     {item}
                 </ScrollView>
-                {this._renderDot(this.props.data.length)}
+                {this._renderDot()}
             </View>
 
         )
@@ -117,7 +120,6 @@ const styles = StyleSheet.create({
     },
     slide: {
         justifyContent: 'center',
-        alignItems: 'center',
         width: screenWidth,
         flex: 1,
         paddingHorizontal: 10,
@@ -127,7 +129,8 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontSize: 16,
         position: 'absolute',
-        bottom: 20
+        bottom: 20,
+        paddingLeft: 10
     },
     dot: {
         width: 8,

@@ -6,6 +6,7 @@ import {
     StyleSheet,
     TouchableOpacity
 } from 'react-native'
+import {observer, inject} from 'mobx-react/native'
 
 import { getTypeList } from '../../../api'
 
@@ -32,7 +33,8 @@ const List = ({ id, name, active, handleClick }) => (
         <Text style={styles.fontStyle}>{name}</Text>
     </TouchableOpacity>
 )
-
+@inject('test')
+@observer
 class TypeList extends Component {
     constructor(props) {
         super(props)

@@ -3,7 +3,7 @@ import { DrawerNavigator } from 'react-navigation'
 import Home from '../views/home'
 import Side from '../components/side'
 
-const App = DrawerNavigator(
+const Router = DrawerNavigator(
     {
         Home: {
             screen: Home
@@ -16,4 +16,4 @@ const App = DrawerNavigator(
     }
 )
 
-export default App
+export default Router

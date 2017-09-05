@@ -65,6 +65,8 @@ class TypeList extends Component {
     handleClick = (name) => {
         this.setState({ active: name })
         this.props.navigation.navigate('Home', { active: name })
+        this.props.test.add()
+        console.log(2222)
     }
     render() {
         return (

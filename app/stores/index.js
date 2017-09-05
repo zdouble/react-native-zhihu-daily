@@ -8,7 +8,7 @@ class Test {
 }
 
 const stores = {
-    test: Test
+    test: new Test()
 }
 
 export default stores

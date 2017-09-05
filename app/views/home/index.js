@@ -13,7 +13,11 @@ import Loading from '../../components/loading'
 import { getLastNews, getBeforeNews } from '../../api'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
+import {observer, inject} from 'mobx-react/native'
+import {autorun} from 'mobx'
 
+@inject('test')
+@observer
 class Home extends Component {
     constructor(props) {
         super(props)
@@ -22,10 +26,13 @@ class Home extends Component {
             page: 0,
             refreshing: false
         }
+        autorun(() => {
+            console.log('autorun', this.props.test.num)
+        })
     }
 
     componentDidMount() {
-        console.log(this.props)
+        console.log(this.props.test.num)
         this.fetchData()
     }
 

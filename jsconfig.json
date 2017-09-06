@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
         "allowJs": true,
-        "allowSyntheticDefaultImports": true
+        "allowSyntheticDefaultImports": true,
+        // 加了这个修饰器就不报错了
+        "experimentalDecorators": true
     },
     "exclude": [
         "node_modules"

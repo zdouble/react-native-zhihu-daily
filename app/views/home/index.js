@@ -26,13 +26,9 @@ class Home extends Component {
             page: 0,
             refreshing: false
         }
-        autorun(() => {
-            console.log('autorun', this.props.test.num)
-        })
     }
 
     componentDidMount() {
-        console.log(this.props.test.num)
         this.fetchData()
     }
 

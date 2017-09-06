@@ -33,49 +33,42 @@ const List = ({ id, name, active, handleClick }) => (
         <Text style={styles.fontStyle}>{name}</Text>
     </TouchableOpacity>
 )
-@inject('test')
+@inject('typeList')
 @observer
 class TypeList extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            typeList: [],
-            active: '首页'
-        }
-    }
     componentDidMount() {
-        getTypeList().then(res => this.setState({ typeList: res.others }))
-        this.props.navigation.navigate('Home', { active: '首页' })
+        this.props.typeList.getTypeListData()
     }
-    renderList() {
-        if (!this.state.typeList.length) {
+    renderList(props) {
+        let data = props.typeList.data
+        if (!data.length) {
             return null
         }
 
-        return this.state.typeList.map(item => (
+        return data.map(item => (
             <List
                 key={item.id}
                 id={item.id}
                 name={item.name}
-                active={this.state.active}
+                active={props.typeList.current}
                 handleClick={this.handleClick}
             />
         ))
     }
     handleClick = (name) => {
-        this.setState({ active: name })
-        this.props.navigation.navigate('Home', { active: name })
-        this.props.test.add()
-        console.log(2222)
+        let props = this.props
+        props.typeList.selectType(name)
+        props.navigation.navigate('Home', { active: name })
     }
     render() {
+        let props = this.props
         return (
             <View>
                 <Home
-                    active={this.state.active}
+                    active={props.typeList.current}
                     handleClick={this.handleClick}
                 />
-                {this.renderList()}
+                {this.renderList(props)}
             </View>
         )
     }

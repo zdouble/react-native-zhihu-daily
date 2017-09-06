@@ -1,4 +1,5 @@
 import { observable, action, computed } from 'mobx'
+import typeList from './type-list.js'
 class Test {
     @observable num = 0
 
@@ -8,7 +9,8 @@ class Test {
 }
 
 const stores = {
-    test: new Test()
+    test: new Test(),
+    typeList
 }
 
 export default stores

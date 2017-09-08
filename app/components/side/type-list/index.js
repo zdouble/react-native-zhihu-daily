@@ -8,11 +8,9 @@ import {
 } from 'react-native'
 import {observer, inject} from 'mobx-react/native'
 
-import { getTypeList } from '../../../api'
-
 const Home = ({ active, handleClick }) => (
     <TouchableOpacity
-        style={[styles.homeContainer, styles.listStyle, active === '首页' && styles.active]}
+        style={[styles.homeContainer, styles.listStyle, active === 0 && styles.active]}
         onPress={() => handleClick('首页')}
         activeOpacity={1}
     >
@@ -26,14 +24,14 @@ const Home = ({ active, handleClick }) => (
 
 const List = ({ id, name, active, handleClick }) => (
     <TouchableOpacity
-        style={[styles.listStyle, styles.typeListStyle, active === name && styles.active]}
-        onPress={() => handleClick(name)}
+        style={[styles.listStyle, styles.typeListStyle, active === id && styles.active]}
+        onPress={() => handleClick(id)}
         activeOpacity={1}
     >
         <Text style={styles.fontStyle}>{name}</Text>
     </TouchableOpacity>
 )
-@inject('typeList')
+@inject('typeList', 'articleList')
 @observer
 class TypeList extends Component {
     componentDidMount() {
@@ -55,10 +53,11 @@ class TypeList extends Component {
             />
         ))
     }
-    handleClick = (name) => {
+    handleClick = (id) => {
         let props = this.props
-        props.typeList.selectType(name)
-        props.navigation.navigate('Home', { active: name })
+        props.typeList.selectType(id)
+        props.navigation.navigate('DrawerClose')
+        props.articleList.fetchData(id)
     }
     render() {
         let props = this.props

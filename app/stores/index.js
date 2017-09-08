@@ -1,16 +1,7 @@
-import { observable, action, computed } from 'mobx'
 import typeList from './type-list.js'
-class Test {
-    @observable num = 0
+import articleList from './article-list.js'
 
-    @action add() {
-        this.num++
-    }
-}
-
-const stores = {
-    test: new Test(),
+export default {
+    articleList,
     typeList
 }
-
-export default stores

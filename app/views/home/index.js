@@ -10,72 +10,52 @@ import Header from '../../components/header'
 import Swiper from './../../components/swiper'
 import List from './list'
 import Loading from '../../components/loading'
-import { getLastNews, getBeforeNews } from '../../api'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
 import {observer, inject} from 'mobx-react/native'
-import {autorun} from 'mobx'
 
-@inject('test')
+let dateNow = new Date()
+
+@inject('articleList')
 @observer
 class Home extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            data: [],
-            page: 0,
-            refreshing: false
-        }
-    }
-
     componentDidMount() {
-        this.fetchData()
-    }
-
-    fetchData() {
-        this.setState({page: 0, refreshing: true})
-        getLastNews().then(res => {
-            this.setState({ refreshing: false, data: [res] })
-        })
+        this.props.articleList.fetchData()
     }
 
     _onRefresh = () => {
-        this.fetchData()
+        this.props.articleList.fetchData()
     }
 
     _renderItem({ item, index }) {
         let date = moment(item.date).format('MM月DD日 dddd')
+        console.log(item)
         return (
             <List date={index === 0 ? '今日热闻' : date} data={item.stories} />
         )
     }
 
     _onEndReached = () => {
-        let date = new Date()
-        let time = date.setDate(date.getDate() - this.state.page)
-        time = moment(time).format('YYYYMMDD')
-        getBeforeNews(time).then(res => {
-            let data = [...this.state.data]
-            data.push(res)
-            this.setState({
-                data: data,
-                page: ++this.state.page
-            })
-        })
+        let articleList = this.props.articleList
+        let date = dateNow.setDate(dateNow.getDate() - articleList.page)
+        date = moment(date).format('YYYYMMDD')
+        articleList.getBeforeNews(date)
     }
 
     _keyExtractor = (item, index) => item.date
 
     render() {
-        let data = this.state.data
+        let props = this.props
+        let data = props.articleList.data
         if (!data.length) {
             return <View><Text></Text></View>
         }
+
         let { top_stories: topStories } = data[0]
         return (
             <View style={styles.container}>
                 <Header
-                    openDrawer={() => this.props.navigation.navigate('DrawerOpen')}
+                    openDrawer={() => props.navigation.navigate('DrawerOpen')}
                     title="首页"
                 />
                 <FlatList
@@ -86,7 +66,7 @@ class Home extends Component {
                     onEndReached={() => this._onEndReached()}
                     refreshControl={
                         <RefreshControl
-                            refreshing={this.state.refreshing}
+                            refreshing={props.articleList.refreshing}
                             onRefresh={this._onRefresh}
                             colors={['#3e9ce9']}
                         />

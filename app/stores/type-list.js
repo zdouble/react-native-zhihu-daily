@@ -1,7 +1,7 @@
 import { observable, action, runInAction } from 'mobx'
 import { getTypeList } from '../api'
 class TypeList {
-    @observable current = '首页'
+    @observable current = 0
     @observable data = []
 
     @action selectType(type) {

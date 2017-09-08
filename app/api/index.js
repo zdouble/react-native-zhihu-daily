@@ -12,8 +12,13 @@ const getBeforeNews = (date) => {
     return get(`/4/news/before/${date}`)
 }
 
+const getThemeNews = (id) => {
+    return get(`https://news-at.zhihu.com/api/4/theme/${id}`)
+}
+
 export {
     getTypeList,
     getLastNews,
-    getBeforeNews
+    getBeforeNews,
+    getThemeNews
 }

@@ -11,7 +11,7 @@ import {observer, inject} from 'mobx-react/native'
 const Home = ({ active, handleClick }) => (
     <TouchableOpacity
         style={[styles.homeContainer, styles.listStyle, active === 0 && styles.active]}
-        onPress={() => handleClick('首页')}
+        onPress={() => handleClick(0)}
         activeOpacity={1}
     >
         <Image

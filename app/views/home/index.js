@@ -16,7 +16,7 @@ import {observer, inject} from 'mobx-react/native'
 
 let dateNow = new Date()
 
-@inject('articleList')
+@inject('articleList', 'typeList')
 @observer
 class Home extends Component {
     componentDidMount() {
@@ -45,28 +45,34 @@ class Home extends Component {
     _keyExtractor = (item, index) => item.date
 
     render() {
-        let props = this.props
-        let data = props.articleList.data
+        let {articleList, typeList, navigation} = this.props
+        let data = articleList.data
         if (!data.length) {
             return <View><Text></Text></View>
         }
+        let topStories
+        if (!typeList.current) {
+            topStories = data[0].top_stories
+        } else {
+            topStories = [{image: data.image, title: data.description}]
+        }
 
-        let { top_stories: topStories } = data[0]
         return (
             <View style={styles.container}>
                 <Header
-                    openDrawer={() => props.navigation.navigate('DrawerOpen')}
+                    openDrawer={() => navigation.navigate('DrawerOpen')}
                     title="首页"
                 />
                 <FlatList
                     data={data}
+                    extraData={this.props}
                     ListHeaderComponent={() => <Swiper autoPlay style={{marginBottom: 10}} data={topStories} />}
                     renderItem={this._renderItem}
                     keyExtractor={this._keyExtractor}
                     onEndReached={() => this._onEndReached()}
                     refreshControl={
                         <RefreshControl
-                            refreshing={props.articleList.refreshing}
+                            refreshing={articleList.refreshing}
                             onRefresh={this._onRefresh}
                             colors={['#3e9ce9']}
                         />

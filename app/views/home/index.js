@@ -3,7 +3,7 @@ import {
     View,
     Text,
     StyleSheet,
-    FlatList,
+    SectionList,
     RefreshControl
 } from 'react-native'
 import Header from '../../components/header'
@@ -13,6 +13,7 @@ import Loading from '../../components/loading'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
 import {observer, inject} from 'mobx-react/native'
+import Item from './list/item.js'
 
 let dateNow = new Date()
 
@@ -27,11 +28,20 @@ class Home extends Component {
         this.props.articleList.fetchData()
     }
 
-    _renderItem({ item, index }) {
-        let date = moment(item.date).format('MM月DD日 dddd')
-        console.log(item)
+    _renderSectionHeader({section}) {
+        let date = moment(section.date).format('MM月DD日 dddd')
+        date = section.index === 0 ? '今日热闻' : date
         return (
-            <List date={index === 0 ? '今日热闻' : date} data={item.stories} />
+            <View style={{paddingLeft: 10, marginBottom: 10}}>
+                <Text>{date}</Text>
+            </View>
+
+        )
+    }
+
+    _renderItem({item}) {
+        return (
+            <Item {...item} />
         )
     }
 
@@ -42,7 +52,9 @@ class Home extends Component {
         articleList.getBeforeNews(date)
     }
 
-    _keyExtractor = (item, index) => item.date
+    _keyExtractor = (item, index) => {
+        return item.id
+    }
 
     render() {
         let {articleList, typeList, navigation} = this.props
@@ -57,16 +69,21 @@ class Home extends Component {
             topStories = [{image: data.image, title: data.description}]
         }
 
+        let sectionsData = data.map((item, i) => {
+            console.log(item.stories.length)
+            return {date: item.date, data: [...item.stories], index: i}
+        })
         return (
             <View style={styles.container}>
                 <Header
                     openDrawer={() => navigation.navigate('DrawerOpen')}
                     title="首页"
                 />
-                <FlatList
-                    data={data}
+                <SectionList
+                    sections={sectionsData}
                     extraData={this.props}
                     ListHeaderComponent={() => <Swiper autoPlay style={{marginBottom: 10}} data={topStories} />}
+                    renderSectionHeader={this._renderSectionHeader}
                     renderItem={this._renderItem}
                     keyExtractor={this._keyExtractor}
                     onEndReached={() => this._onEndReached()}

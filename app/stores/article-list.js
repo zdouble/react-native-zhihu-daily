@@ -10,7 +10,6 @@ class ArticleList {
         this.page = 0
         this.refreshing = true
         let data = id ? await getThemeNews(id) : await getLastNews()
-        console.log(data)
         runInAction(() => {
             this.data = [data]
             this.refreshing = false

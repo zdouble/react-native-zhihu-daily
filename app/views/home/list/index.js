@@ -25,7 +25,6 @@ class List extends Component {
         let list = data.map(data => <Item key={data.id} {...data} />)
         return (
             <View>
-                <Header date={date} />
                 {list}
             </View>
         )

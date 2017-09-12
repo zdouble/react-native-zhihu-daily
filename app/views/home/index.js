@@ -60,14 +60,9 @@ class Home extends Component {
         let {articleList, typeList, navigation} = this.props
         let data = articleList.data
         if (!data.length) {
-            return <View><Text></Text></View>
+            return <Loading/>
         }
-        let topStories
-        if (!typeList.current) {
-            topStories = data[0].top_stories
-        } else {
-            topStories = [{image: data.image, title: data.description}]
-        }
+        let topStories = data[0].top_stories
 
         let sectionsData = data.map((item, i) => {
             console.log(item.stories.length)

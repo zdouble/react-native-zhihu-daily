@@ -11,7 +11,7 @@ import {observer, inject} from 'mobx-react/native'
 const Home = ({ active, handleClick }) => (
     <TouchableOpacity
         style={[styles.homeContainer, styles.listStyle, active === 0 && styles.active]}
-        onPress={() => handleClick(0)}
+        onPress={() => handleClick(0, '首页')}
         activeOpacity={1}
     >
         <Image
@@ -25,7 +25,7 @@ const Home = ({ active, handleClick }) => (
 const List = ({ id, name, active, handleClick }) => (
     <TouchableOpacity
         style={[styles.listStyle, styles.typeListStyle, active === id && styles.active]}
-        onPress={() => handleClick(id)}
+        onPress={() => handleClick(id, name)}
         activeOpacity={1}
     >
         <Text style={styles.fontStyle}>{name}</Text>
@@ -53,9 +53,9 @@ class TypeList extends Component {
             />
         ))
     }
-    handleClick = (id) => {
+    handleClick = (id, name) => {
         let props = this.props
-        props.typeList.selectType(id)
+        props.typeList.selectType(id, name)
         if (id === 0) {
             props.navigation.navigate('Home')
         } else {

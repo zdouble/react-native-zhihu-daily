@@ -2,16 +2,21 @@ import { observable, action, runInAction } from 'mobx'
 import { getLastNews, getBeforeNews, getThemeNews } from '../api'
 
 class ArticleList {
-    @observable data = []
+    @observable data = null
     @observable page = 0
     @observable refreshing = false
 
-    @action fetchData = async(id) => {
+    clear() {
+        this.data = null
         this.page = 0
         this.refreshing = true
+    }
+
+    @action fetchData = async(id) => {
+        this.clear()
         let data = id ? await getThemeNews(id) : await getLastNews()
         runInAction(() => {
-            this.data = [data]
+            this.data = id ? data : [data]
             this.refreshing = false
         })
     }

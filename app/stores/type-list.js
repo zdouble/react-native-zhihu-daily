@@ -1,11 +1,13 @@
 import { observable, action, runInAction } from 'mobx'
 import { getTypeList } from '../api'
 class TypeList {
-    @observable current = 0
+    @observable currentID = 0
+    @observable currentName = ''
     @observable data = []
 
-    @action selectType(type) {
-        this.current = type
+    @action selectType(id, name) {
+        this.currentId = id
+        this.currentName = name
     }
 
     @action getTypeListData = async() => {

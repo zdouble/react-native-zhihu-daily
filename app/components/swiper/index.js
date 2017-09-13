@@ -4,11 +4,11 @@ import {
     Text,
     Image,
     StyleSheet,
-    Dimensions,
     ScrollView
 } from 'react-native'
+import { screenSize } from '../../utils'
 
-const screenWidth = Dimensions.get('window').width
+const screenWidth = screenSize().width
 let timer = null
 let swiperItemWidth = 0
 let swiperItemLength = 0

@@ -8,7 +8,6 @@ import {
 } from 'react-native'
 import Header from '../../components/header'
 import Swiper from './../../components/swiper'
-import List from './list'
 import Loading from '../../components/loading'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
@@ -57,9 +56,9 @@ class Home extends Component {
     }
 
     render() {
-        let {articleList, typeList, navigation} = this.props
+        let {articleList, navigation} = this.props
         let data = articleList.data
-        if (!data.length) {
+        if (!data) {
             return <Loading/>
         }
         let topStories = data[0].top_stories

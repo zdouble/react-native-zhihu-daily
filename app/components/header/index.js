@@ -14,19 +14,19 @@ class Header extends Component {
                 <View style={{ paddingLeft: 10 }}>
                     <TouchableOpacity
                         onPress={this.props.openDrawer}
-                        style={{ marginTop: -10 }}
+                        style={{ justifyContent: 'center' }}
                     >
                         <Image
                             source={require('../../assets/images/abc_textfield_search_activated_mtrl_alpha.9.png')}
-                            style={{ width: 36, height: 10 }}
+                            style={{ width: 25, height: 8 }}
                         />
                         <Image
                             source={require('../../assets/images/abc_textfield_search_activated_mtrl_alpha.9.png')}
-                            style={{ width: 36, height: 10 }}
+                            style={{ width: 25, height: 8 }}
                         />
                         <Image
                             source={require('../../assets/images/abc_textfield_search_activated_mtrl_alpha.9.png')}
-                            style={{ width: 36, height: 10 }}
+                            style={{ width: 25, height: 8 }}
                         />
                     </TouchableOpacity>
                 </View>

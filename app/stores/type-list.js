@@ -1,7 +1,7 @@
 import { observable, action, runInAction } from 'mobx'
 import { getTypeList } from '../api'
 class TypeList {
-    @observable currentID = 0
+    @observable currentId = 0
     @observable currentName = ''
     @observable data = []
 

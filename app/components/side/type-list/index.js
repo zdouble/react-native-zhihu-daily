@@ -48,7 +48,7 @@ class TypeList extends Component {
                 key={item.id}
                 id={item.id}
                 name={item.name}
-                active={props.typeList.current}
+                active={props.typeList.currentId}
                 handleClick={this.handleClick}
             />
         ))
@@ -69,7 +69,7 @@ class TypeList extends Component {
         return (
             <View>
                 <Home
-                    active={props.typeList.current}
+                    active={props.typeList.currentId}
                     handleClick={this.handleClick}
                 />
                 {this.renderList(props)}

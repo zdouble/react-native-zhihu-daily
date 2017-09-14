@@ -55,6 +55,10 @@ class Home extends Component {
         return item.id
     }
 
+    itemChange({viewableItems}) {
+        console.log(viewableItems[0].section.date)
+    }
+
     render() {
         let {articleList, navigation} = this.props
         let data = articleList.data
@@ -64,9 +68,9 @@ class Home extends Component {
         let topStories = data[0].top_stories
 
         let sectionsData = data.map((item, i) => {
-            console.log(item.stories.length)
             return {date: item.date, data: [...item.stories], index: i}
         })
+
         return (
             <View style={styles.container}>
                 <Header
@@ -88,6 +92,7 @@ class Home extends Component {
                             colors={['#3e9ce9']}
                         />
                     }
+                    onViewableItemsChanged={this.itemChange}
                     onEndReachedThreshold={0.1}
                     ListFooterComponent={() => <Loading/>}
                 />

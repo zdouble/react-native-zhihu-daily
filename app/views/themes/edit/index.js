@@ -22,7 +22,9 @@ const Edit = ({editors}) => (
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingLeft: 10,
+        marginVertical: 10
     },
     image: {
         width: 25,

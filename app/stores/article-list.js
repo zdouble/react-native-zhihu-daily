@@ -6,14 +6,13 @@ class ArticleList {
     @observable page = 0
     @observable refreshing = false
 
-    clear() {
+    @action clear() {
         this.data = null
         this.page = 0
         this.refreshing = true
     }
 
     @action fetchData = async(id) => {
-        this.clear()
         let data = id ? await getThemeNews(id) : await getLastNews()
         runInAction(() => {
             this.data = id ? data : [data]

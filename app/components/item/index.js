@@ -13,7 +13,10 @@ const Item = ({ title, images }) => (
             <View style={styles.textContainer}>
                 <Text numberOfLines={3}>{title}</Text>
             </View>
-            <Image source={{ uri: images[0] }} style={styles.imageStyle} />
+            {
+                images && <Image source={{ uri: images[0] }} style={styles.imageStyle} />
+            }
+
         </TouchableOpacity>
     </View>
 )

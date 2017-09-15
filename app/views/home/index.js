@@ -12,7 +12,7 @@ import Loading from '../../components/loading'
 import moment from 'moment'
 import 'moment/locale/zh-cn'
 import {observer, inject} from 'mobx-react/native'
-import Item from './list/item.js'
+import Item from '../../components/item'
 
 let dateNow = new Date()
 
@@ -38,11 +38,7 @@ class Home extends Component {
         )
     }
 
-    _renderItem({item}) {
-        return (
-            <Item {...item} />
-        )
-    }
+    _renderItem = ({item}) => <Item {...item} />
 
     _onEndReached = () => {
         let articleList = this.props.articleList
@@ -51,9 +47,7 @@ class Home extends Component {
         articleList.getBeforeNews(date)
     }
 
-    _keyExtractor = (item, index) => {
-        return item.id
-    }
+    _keyExtractor = (item) => item.id
 
     itemChange({viewableItems}) {
         console.log(viewableItems[0].section.date)
@@ -62,7 +56,7 @@ class Home extends Component {
     render() {
         let {articleList, navigation} = this.props
         let data = articleList.data
-        if (!data) {
+        if ((data && !data.length) || !data) {
             return <Loading/>
         }
         let topStories = data[0].top_stories

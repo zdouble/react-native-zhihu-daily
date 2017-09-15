@@ -54,15 +54,23 @@ class TypeList extends Component {
         ))
     }
     handleClick = (id, name) => {
-        let props = this.props
-        props.typeList.selectType(id, name)
-        if (id === 0) {
-            props.navigation.navigate('Home')
-        } else {
-            props.navigation.navigate('Themes')
+        let {typeList, navigation, articleList} = this.props
+
+        if (typeList.currentId === id) {
+            navigation.navigate('DrawerClose')
+            return
         }
 
-        props.articleList.fetchData(id)
+        typeList.selectType(id, name)
+        if (id === 0) {
+            navigation.navigate('Home')
+        } else {
+            navigation.navigate('Themes')
+        }
+
+        articleList.clear()
+
+        articleList.fetchData(id)
     }
     render() {
         let props = this.props

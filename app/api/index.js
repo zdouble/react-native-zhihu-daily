@@ -13,7 +13,7 @@ const getBeforeNews = (date) => {
 }
 
 const getThemeNews = (id) => {
-    return get(`https://news-at.zhihu.com/api/4/theme/${id}`)
+    return get(`/4/theme/${id}`)
 }
 
 export {

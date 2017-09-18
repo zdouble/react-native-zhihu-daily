@@ -2,12 +2,16 @@ import { observable, action, runInAction } from 'mobx'
 import { getTypeList } from '../api'
 class TypeList {
     @observable currentId = 0
-    @observable currentName = ''
+    @observable currentName = '首页'
+    @observable homeTitle = ''
+    @observable flag = false
     @observable data = []
 
     @action selectType(id, name) {
+        this.homeTitle = ''
         this.currentId = id
         this.currentName = name
+        this.flag = false
     }
 
     @action getTypeListData = async() => {
@@ -15,6 +19,14 @@ class TypeList {
         runInAction(() => {
             this.data = data.others
         })
+    }
+
+    @action changeHomeTitle(title) {
+        this.homeTitle = title
+    }
+
+    @action changeFlag(flag) {
+        this.flag = flag
     }
 
     // @action getTypeListData() {

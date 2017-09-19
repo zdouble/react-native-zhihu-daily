@@ -13,16 +13,14 @@ const scrrenWidth = screenSize().width
 class Themes extends Component {
     _keyExtractor = (item) => item.id
 
-    _renderItem = ({item}) => <Item key={item.id} {...item} />
+    _renderItem = ({item}) => {
+        // console.log(this.props.navigation)
+        return <Item navigate={this.props.navigation.navigate} key={item.id} {...item} />
+    }
 
-    _onEndReached() {}
-
-    _renderSectionHeader({navigation, typeList, articleList}) {
+    _renderSectionHeader({articleList}) {
         return (
             <View>
-                <Header
-                    openDrawer={() => navigation.navigate('DrawerOpen')}
-                    title={typeList.currentName} />
                 <View style={{ height: 200, position: 'relative' }}>
                     <Image source={{ uri: articleList.data.image }} style={{ width: scrrenWidth, flex: 1 }} />
                     <Text style={styles.text}>{articleList.data.description}</Text>
@@ -32,7 +30,7 @@ class Themes extends Component {
         )
     }
     render() {
-        let { articleList } = this.props
+        let { articleList, typeList, navigation } = this.props
         let { data } = articleList
         console.log(data)
         if (!data) {
@@ -40,14 +38,15 @@ class Themes extends Component {
         }
         return (
             <View style={{ flex: 1 }}>
-
+                <Header
+                    openDrawer={() => navigation.navigate('DrawerOpen')}
+                    title={typeList.currentName} />
                 <FlatList
                     data={data.stories}
                     extraData={this.props}
                     ListHeaderComponent={() => this._renderSectionHeader(this.props)}
                     renderItem={this._renderItem}
                     keyExtractor={this._keyExtractor}
-                    onEndReached={() => this._onEndReached()}
                     refreshControl={
                         <RefreshControl
                             refreshing={articleList.refreshing}
@@ -57,7 +56,6 @@ class Themes extends Component {
                     }
                     onViewableItemsChanged={this.itemChange}
                     onEndReachedThreshold={0.1}
-                    ListFooterComponent={() => <Loading/>}
                 />
             </View>
         )

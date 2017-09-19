@@ -38,7 +38,7 @@ class Home extends Component {
         )
     }
 
-    _renderItem = ({item}) => <Item {...item} />
+    _renderItem = ({item}) => <Item navigate={this.props.navigation.navigate} {...item} />
 
     _onEndReached = () => {
         let articleList = this.props.articleList
@@ -82,8 +82,6 @@ class Home extends Component {
                 title = '今日热闻'
             }
         }
-
-        console.log(Date.now())
 
         return (
             <View style={styles.container}>

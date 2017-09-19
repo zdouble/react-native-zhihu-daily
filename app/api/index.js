@@ -16,9 +16,15 @@ const getThemeNews = (id) => {
     return get(`/4/theme/${id}`)
 }
 
+const getNewsContent = (id) => {
+    console.log(id)
+    return get(`/4/news/${id}`)
+}
+
 export {
     getTypeList,
     getLastNews,
     getBeforeNews,
-    getThemeNews
+    getThemeNews,
+    getNewsContent
 }

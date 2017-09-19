@@ -39,11 +39,11 @@ class Header extends Component {
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
                         <Image
                             source={require('../../assets/images/message.png')}
-                            style={{ width: 40, height: 40 }}
+                            style={{ width: 30, height: 30 }}
                         />
                         <Image
                             source={require('../../assets/images/abc_ic_menu_moreoverflow_mtrl_alpha.png')}
-                            style={{ width: 40, height: 40 }}
+                            style={{ width: 30, height: 30 }}
                         />
                     </View>
                 </View>

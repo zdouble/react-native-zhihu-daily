@@ -1,10 +1,11 @@
 import React from 'react'
-import { DrawerNavigator } from 'react-navigation'
+import { DrawerNavigator, StackNavigator } from 'react-navigation'
 import Home from '../views/home'
 import Themes from '../views/themes'
+import WebPage from '../views/web-page'
 import Side from '../components/side'
 
-const Router = DrawerNavigator(
+const drawerNavigator = DrawerNavigator(
     {
         Home: {
             screen: Home
@@ -16,6 +17,23 @@ const Router = DrawerNavigator(
     {
         contentComponent: (props) => {
             return (<Side {...props} />)
+        }
+    }
+)
+
+const Router = StackNavigator(
+    {
+        Home: {
+            screen: drawerNavigator
+        },
+        WebPage: {
+            screen: WebPage
+        }
+    },
+    {
+        initialRouteName: 'Home',
+        navigationOptions: {
+            header: null
         }
     }
 )

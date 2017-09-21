@@ -1,25 +1,14 @@
 import { get } from '../axios'
 
-const getTypeList = () => {
-    return get('/4/themes')
-}
+const getTypeList = () => get('/4/themes')
 
-const getLastNews = () => {
-    return get('/4/news/latest')
-}
+const getLastNews = () => get('/4/news/latest')
 
-const getBeforeNews = (date) => {
-    return get(`/4/news/before/${date}`)
-}
+const getBeforeNews = (date) => get(`/4/news/before/${date}`)
 
-const getThemeNews = (id) => {
-    return get(`/4/theme/${id}`)
-}
+const getThemeNews = (id) => get(`/4/theme/${id}`)
 
-const getNewsContent = (id) => {
-    console.log(id)
-    return get(`/4/news/${id}`)
-}
+const getNewsContent = (id) => get(`/4/news/${id}`)
 
 export {
     getTypeList,

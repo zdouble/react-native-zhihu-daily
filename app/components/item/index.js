@@ -7,22 +7,19 @@ import {
     StyleSheet
 } from 'react-native'
 
-const Item = ({ title, images, navigate, id }) => {
-    console.log(navigate)
-    return (
-        <View style={styles.container}>
-            <TouchableOpacity style={styles.wrap} activeOpacity={1} onPress={() => navigate('WebPage', {id})}>
-                <View style={styles.textContainer}>
-                    <Text numberOfLines={3}>{title}</Text>
-                </View>
-                {
-                    images && <Image source={{ uri: images[0] }} style={styles.imageStyle} />
-                }
+const Item = ({ title, images, navigate, id }) => (
+    <View style={styles.container}>
+        <TouchableOpacity style={styles.wrap} activeOpacity={1} onPress={() => navigate('WebPage', {id})}>
+            <View style={styles.textContainer}>
+                <Text numberOfLines={3}>{title}</Text>
+            </View>
+            {
+                images && <Image source={{ uri: images[0] }} style={styles.imageStyle} />
+            }
 
-            </TouchableOpacity>
-        </View>
-    )
-}
+        </TouchableOpacity>
+    </View>
+)
 
 const styles = StyleSheet.create({
     container: {

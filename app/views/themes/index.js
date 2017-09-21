@@ -13,10 +13,7 @@ const scrrenWidth = screenSize().width
 class Themes extends Component {
     _keyExtractor = (item) => item.id
 
-    _renderItem = ({item}) => {
-        // console.log(this.props.navigation)
-        return <Item navigate={this.props.navigation.navigate} key={item.id} {...item} />
-    }
+    _renderItem = ({item}) => <Item navigate={this.props.navigation.navigate} key={item.id} {...item} />
 
     _renderSectionHeader({articleList}) {
         return (

@@ -10,7 +10,7 @@ import {
 class Header extends Component {
     render() {
         return (
-            <View style={styles.container}>
+            <View style={[styles.container,this.props.style]}>
                 <View style={{ paddingLeft: 10 }}>
                     <TouchableOpacity
                         onPress={this.props.openDrawer}
@@ -57,7 +57,8 @@ const styles = StyleSheet.create({
         height: 50,
         backgroundColor: '#00acea',
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        
     }
 })
 

@@ -57,6 +57,7 @@ class Home extends Component {
 
     _onScroll = (e) => {
         if (e.nativeEvent.contentOffset.y > 200) {
+            this.props.typeList.changeHomeTitle(Date.now())
             this.props.typeList.changeFlag(true)
         } else {
             this.props.typeList.changeHomeTitle('首页')
@@ -78,8 +79,11 @@ class Home extends Component {
 
         let title = typeList.homeTitle ? typeList.homeTitle : typeList.currentName
         if (typeList.flag) {
-            if (moment(Date.now()).format('MM月DD日 dddd') === (title = moment(typeList.homeTitle).format('MM月DD日 dddd'))) {
+            let x = moment(typeList.homeTitle).format('MM月DD日 dddd')
+            if (moment(Date.now()).format('MM月DD日 dddd') === x) {
                 title = '今日热闻'
+            }else {
+                title = x
             }
         }
 

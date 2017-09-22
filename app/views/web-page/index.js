@@ -15,7 +15,7 @@ class WebPage extends Component {
 
     async componentDidMount() {
         let data = await getNewsContent(this.props.navigation.state.params.id)
-
+        console.log(data)
         this.setState({
             data
         })
@@ -32,6 +32,11 @@ class WebPage extends Component {
             <meta http-equiv="X-UA-Compatible" content="ie=edge">
             <title>Document</title>
             ${css}
+            <style>
+            .main-wrap{
+                padding-top: 45px
+            }
+            </style>
         </head>
         <body>
             ${body}
@@ -64,8 +69,8 @@ class WebPage extends Component {
                 <Header
                     title=""
                     style={{width: screenSize().width, position: 'absolute', zIndex: 2, opacity: opacity}} />
-                <View style={{ height: 200, width: screenSize().width, backgroundColor: '#fff', position: 'absolute', zIndex: 1, marginTop: this.state.y }}>
-                    <Image source={{uri: data.image}} style={{ height: 200, width: null, position: 'relative', marginTop: -this.state.y + this.state.y * 0.3, top: 50 }}/>
+                <View style={{ height: 250, width: screenSize().width, backgroundColor: '#fff', position: 'absolute', zIndex: 1, marginTop: this.state.y }}>
+                    <Image source={{uri: data.image}} style={{ height: 250, width: null, position: 'relative', marginTop: -this.state.y + this.state.y * 0.3, top: 30 }}/>
                 </View>
                 <WebView
                     ref={webview => { this.webview = webview }}

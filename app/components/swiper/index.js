@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
 import {
     View,
-    Text,
-    Image,
     StyleSheet,
     ScrollView
 } from 'react-native'
-import { screenSize } from '../../utils'
 
-const screenWidth = screenSize().width
 let timer = null
 let swiperItemWidth = 0
 let swiperItemLength = 0
@@ -17,20 +13,21 @@ class Swiper extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            page: 0
+            page: 0,
+            items: []
         }
     }
-    _renderPage(data) {
-        return data.map(item => (
-            <Image
-                source={{ uri: item.image }}
-                style={styles.slide}
-                key={item.id}
-            >
-                <Text style={styles.text}>{item.title}</Text>
-            </Image>
-        ))
-    }
+    // _renderPage(data) {
+    //     return data.map(item => (
+    //         <Image
+    //             source={{ uri: item.image }}
+    //             style={styles.slide}
+    //             key={item.id}
+    //         >
+    //             <Text style={styles.text}>{item.title}</Text>
+    //         </Image>
+    //     ))
+    // }
 
     _renderDot() {
         let dotList = []
@@ -64,6 +61,12 @@ class Swiper extends Component {
 
     componentWillMount() {
         swiperItemLength = this.props.data.length
+        this.props.data.map((item, index) => {
+            // console.log(this.state)
+            let items = this.state.items
+            items.push(this.props.renderItem(item, index))
+            this.setState({items: items})
+        })
     }
     componentDidMount() {
         if (this.props.autoPlay) {
@@ -91,7 +94,7 @@ class Swiper extends Component {
     }
 
     render() {
-        let item = this._renderPage(this.props.data)
+        // let item = this._renderPage(this.props.data)
         return (
             <View style={[this.props.style, styles.wrapper]}>
                 <ScrollView
@@ -104,7 +107,7 @@ class Swiper extends Component {
                     onScrollBeginDrag={this._onScrollBeginDrag}
                     onScrollEndDrag={this._onScrollEndDrag}
                 >
-                    {item}
+                    {this.state.items}
                 </ScrollView>
                 {this._renderDot()}
             </View>
@@ -117,20 +120,6 @@ const styles = StyleSheet.create({
     wrapper: {
         height: 200,
         position: 'relative'
-    },
-    slide: {
-        justifyContent: 'center',
-        width: screenWidth,
-        flex: 1,
-        paddingHorizontal: 10,
-        position: 'relative'
-    },
-    text: {
-        color: '#fff',
-        fontSize: 16,
-        position: 'absolute',
-        bottom: 20,
-        paddingLeft: 10
     },
     dot: {
         width: 8,

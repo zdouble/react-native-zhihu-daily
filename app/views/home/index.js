@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import {
     View,
     Text,
+    Image,
     StyleSheet,
     SectionList,
-    RefreshControl
+    RefreshControl,
+    TouchableOpacity
 } from 'react-native'
 import Header from '../../components/header'
 import Swiper from './../../components/swiper'
@@ -13,6 +15,9 @@ import moment from 'moment'
 import 'moment/locale/zh-cn'
 import {observer, inject} from 'mobx-react/native'
 import Item from '../../components/item'
+import { screenSize } from '../../utils'
+
+const screenWidth = screenSize().width
 
 let dateNow = new Date()
 
@@ -65,6 +70,20 @@ class Home extends Component {
         }
     }
 
+    swRenderItem = (item, index) => {
+        return (
+            <TouchableOpacity activeOpacity={1} key={item.id} onPress={() => this.props.navigation.navigate('WebPage', {id: item.id})}>
+                <Image
+                    source={{ uri: item.image }}
+                    style={styles.slide}
+                >
+                    <Text style={styles.text}>{item.title}</Text>
+                </Image>
+            </TouchableOpacity>
+
+        )
+    }
+
     render() {
         let {articleList, navigation, typeList} = this.props
         let data = articleList.data
@@ -82,7 +101,7 @@ class Home extends Component {
             let x = moment(typeList.homeTitle).format('MM月DD日 dddd')
             if (moment(Date.now()).format('MM月DD日 dddd') === x) {
                 title = '今日热闻'
-            }else {
+            } else {
                 title = x
             }
         }
@@ -96,7 +115,7 @@ class Home extends Component {
                 <SectionList
                     sections={sectionsData}
                     extraData={this.props}
-                    ListHeaderComponent={() => <Swiper autoPlay style={{marginBottom: 10}} data={topStories} />}
+                    ListHeaderComponent={() => <Swiper renderItem={this.swRenderItem} autoPlay style={{marginBottom: 10}} data={topStories} />}
                     renderSectionHeader={this._renderSectionHeader}
                     renderItem={this._renderItem}
                     keyExtractor={this._keyExtractor}
@@ -121,6 +140,20 @@ class Home extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1
+    },
+    slide: {
+        justifyContent: 'center',
+        width: screenWidth,
+        flex: 1,
+        paddingHorizontal: 10,
+        position: 'relative'
+    },
+    text: {
+        color: '#fff',
+        fontSize: 16,
+        position: 'absolute',
+        bottom: 20,
+        paddingLeft: 10
     }
 })
 

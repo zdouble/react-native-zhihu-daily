@@ -10,25 +10,9 @@ import {
 class Header extends Component {
     render() {
         return (
-            <View style={[styles.container,this.props.style]}>
+            <View style={[styles.container, this.props.style]}>
                 <View style={{ paddingLeft: 10 }}>
-                    <TouchableOpacity
-                        onPress={this.props.openDrawer}
-                        style={{ justifyContent: 'center' }}
-                    >
-                        <Image
-                            source={require('../../assets/images/abc_textfield_search_activated_mtrl_alpha.9.png')}
-                            style={{ width: 25, height: 8 }}
-                        />
-                        <Image
-                            source={require('../../assets/images/abc_textfield_search_activated_mtrl_alpha.9.png')}
-                            style={{ width: 25, height: 8 }}
-                        />
-                        <Image
-                            source={require('../../assets/images/abc_textfield_search_activated_mtrl_alpha.9.png')}
-                            style={{ width: 25, height: 8 }}
-                        />
-                    </TouchableOpacity>
+                    {this.props.renderLeft && this.props.renderLeft()}
                 </View>
                 <View style={{ flex: 1 }}>
                     <View style={{ paddingLeft: 20 }}>
@@ -57,8 +41,7 @@ const styles = StyleSheet.create({
         height: 50,
         backgroundColor: '#00acea',
         flexDirection: 'row',
-        alignItems: 'center',
-        
+        alignItems: 'center'
     }
 })
 

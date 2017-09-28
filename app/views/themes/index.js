@@ -5,6 +5,7 @@ import { observer, inject } from 'mobx-react/native'
 import { screenSize } from '../../utils'
 import Loading from '../../components/loading'
 import Item from '../../components/item'
+import Hanburger from '../../components/hanburger'
 import Edit from './edit'
 const scrrenWidth = screenSize().width
 
@@ -29,14 +30,13 @@ class Themes extends Component {
     render() {
         let { articleList, typeList, navigation } = this.props
         let { data } = articleList
-        console.log(data)
         if (!data) {
             return <Loading />
         }
         return (
             <View style={{ flex: 1 }}>
                 <Header
-                    openDrawer={() => navigation.navigate('DrawerOpen')}
+                    renderLeft={() => <Hanburger navigation={navigation}/>}
                     title={typeList.currentName} />
                 <FlatList
                     data={data.stories}

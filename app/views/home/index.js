@@ -15,6 +15,7 @@ import moment from 'moment'
 import 'moment/locale/zh-cn'
 import {observer, inject} from 'mobx-react/native'
 import Item from '../../components/item'
+import Hanburger from '../../components/hanburger'
 import { screenSize } from '../../utils'
 
 const screenWidth = screenSize().width
@@ -84,28 +85,6 @@ class Home extends Component {
         )
     }
 
-    _renderLeft = () => {
-        return (
-            <TouchableOpacity
-                onPress={() => this.props.navigation.navigate('DrawerOpen')}
-                style={{ justifyContent: 'center' }}
-            >
-                <Image
-                    source={require('../../assets/images/abc_textfield_search_activated_mtrl_alpha.9.png')}
-                    style={{ width: 25, height: 8 }}
-                />
-                <Image
-                    source={require('../../assets/images/abc_textfield_search_activated_mtrl_alpha.9.png')}
-                    style={{ width: 25, height: 8 }}
-                />
-                <Image
-                    source={require('../../assets/images/abc_textfield_search_activated_mtrl_alpha.9.png')}
-                    style={{ width: 25, height: 8 }}
-                />
-            </TouchableOpacity>
-        )
-    }
-
     render() {
         let {articleList, navigation, typeList} = this.props
         let data = articleList.data
@@ -132,7 +111,7 @@ class Home extends Component {
             <View style={styles.container}>
                 <Header
                     title={title}
-                    renderLeft={this._renderLeft}
+                    renderLeft={() => <Hanburger navigation={navigation}/>}
                 />
                 <SectionList
                     sections={sectionsData}

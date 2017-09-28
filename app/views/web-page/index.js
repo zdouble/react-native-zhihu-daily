@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { WebView, View, Image } from 'react-native'
+import { WebView, View, Image, TouchableOpacity, Linking } from 'react-native'
 import Loading from '../../components/loading'
 import Header from '../../components/header'
 import { getNewsContent } from '../../api'
@@ -15,7 +15,6 @@ class WebPage extends Component {
 
     async componentDidMount() {
         let data = await getNewsContent(this.props.navigation.state.params.id)
-        console.log(data)
         this.setState({
             data
         })
@@ -45,14 +44,29 @@ class WebPage extends Component {
         return html
     }
     _onMessage = (e) => {
-        this.setState({
-            y: -e.nativeEvent.data
-        })
+        let data = JSON.parse(e.nativeEvent.data)
+
+        if (data.y) {
+            this.setState({
+                y: -data.y
+            })
+        } else {
+            Linking.openURL(data.url).catch(err => console.error('An error occurred', err))
+        }
     }
-    _injectJavaScript = () => {
-        const script = `window.onscroll=function(){window.postMessage(document.body.scrollTop)}`
-        return script
-    }
+    _injectJavaScript = () => `
+        window.onscroll=function(){window.postMessage(JSON.stringify({y:document.body.scrollTop}))};
+        var a = document.getElementsByTagName('a');
+        for(var i=0;i<a.length;i++){
+            a[i].onclick = function (event) {
+                if(this.href){
+                    window.postMessage(JSON.stringify({url:this.href}));
+                    event.preventDefault();
+                }
+            }
+        }
+    `
+
     render() {
         let { data } = this.state
         if (!data) {
@@ -67,16 +81,19 @@ class WebPage extends Component {
         return (
             <View style={{flex: 1, backgroundColor: '#fff'}}>
                 <Header
+                    renderLeft={() => <TouchableOpacity opacity={1} onPress={() => this.props.navigation.goBack()}><Image style={{width: 30, height: 30}} source={require('../../assets/images/abc_ic_ab_back_mtrl_am_alpha.png')}/></TouchableOpacity>}
                     title=""
                     style={{width: screenSize().width, position: 'absolute', zIndex: 2, opacity: opacity}} />
-                <View style={{ height: 250, width: screenSize().width, backgroundColor: '#fff', position: 'absolute', zIndex: 1, marginTop: this.state.y }}>
-                    <Image source={{uri: data.image}} style={{ height: 250, width: null, position: 'relative', marginTop: -this.state.y + this.state.y * 0.3, top: 30 }}/>
-                </View>
+                {
+                    data.image &&
+                    <View style={{ height: 250, width: screenSize().width, backgroundColor: '#fff', position: 'absolute', zIndex: 1, marginTop: this.state.y }}>
+                        <Image source={{uri: data.image}} style={{ height: 250, width: null, position: 'relative', marginTop: -this.state.y + this.state.y * 0.3, top: 30 }}/>
+                    </View>
+                }
                 <WebView
-                    ref={webview => { this.webview = webview }}
                     onMessage={this._onMessage}
                     style={{flex: 1}}
-                    source={{ html: this.html() }}
+                    source={{ uri: this.html() }}
                     startInLoadingState
                     renderLoading={() => <Loading size="large" />}
                     injectedJavaScript={this._injectJavaScript()}

@@ -50,7 +50,7 @@ class WebPage extends Component {
             this.setState({
                 y: -data.y
             })
-        } else {
+        } else if (data.url) {
             Linking.openURL(data.url).catch(err => console.error('An error occurred', err))
         }
     }
@@ -93,7 +93,7 @@ class WebPage extends Component {
                 <WebView
                     onMessage={this._onMessage}
                     style={{flex: 1}}
-                    source={{ uri: this.html() }}
+                    source={{ html: this.html() }}
                     startInLoadingState
                     renderLoading={() => <Loading size="large" />}
                     injectedJavaScript={this._injectJavaScript()}

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import {
     View,
     Text,
@@ -8,29 +8,43 @@ import {
 } from 'react-native'
 import {observer, inject} from 'mobx-react/native'
 
-const Home = ({ active, handleClick }) => (
-    <TouchableOpacity
-        style={[styles.homeContainer, styles.listStyle, active === 0 && styles.active]}
-        onPress={() => handleClick(0, '首页')}
-        activeOpacity={1}
-    >
-        <Image
-            style={styles.homeImage}
-            source={require('../../../assets/images/home.png')}
-        />
-        <Text style={[styles.fontStyle, styles.homeText]}>首页</Text>
-    </TouchableOpacity>
-)
+// const Home = ({ active, handleClick }) => (
+//     <TouchableOpacity
+//         style={[styles.homeContainer, styles.listStyle, active === 0 && styles.active]}
+//         onPress={() => handleClick(0, '首页')}
+//         activeOpacity={1}
+//     >
+//         <Image
+//             style={styles.homeImage}
+//             source={require('../../../assets/images/home.png')}
+//         />
+//         <Text style={[styles.fontStyle, styles.homeText]}>首页</Text>
+//     </TouchableOpacity>
+// )
 
 const List = ({ id, name, active, handleClick }) => (
     <TouchableOpacity
-        style={[styles.listStyle, styles.typeListStyle, active === id && styles.active]}
+        style={[styles.listStyle, !id ? styles.homeContainer : styles.typeListStyle, active === id && styles.active]}
         onPress={() => handleClick(id, name)}
         activeOpacity={1}
     >
-        <Text style={styles.fontStyle}>{name}</Text>
+        {
+            !id && <Image
+                style={styles.homeImage}
+                source={require('../../../assets/images/home.png')}
+            />
+        }
+        <Text style={[styles.fontStyle, !id && styles.homeText]}>{name}</Text>
     </TouchableOpacity>
 )
+
+List.propTypes = {
+    id: PropTypes.number,
+    name: PropTypes.string,
+    active: PropTypes.number,
+    handleClick: PropTypes.func
+}
+
 @inject('typeList', 'articleList')
 @observer
 class TypeList extends Component {
@@ -38,7 +52,7 @@ class TypeList extends Component {
         this.props.typeList.getTypeListData()
     }
     renderList(props) {
-        let data = props.typeList.data
+        let data = [{id: 0, name: '首页'}, ...props.typeList.data]
         if (!data.length) {
             return null
         }
@@ -76,10 +90,6 @@ class TypeList extends Component {
         let props = this.props
         return (
             <View>
-                <Home
-                    active={props.typeList.currentId}
-                    handleClick={this.handleClick}
-                />
                 {this.renderList(props)}
             </View>
         )

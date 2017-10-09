@@ -62,8 +62,8 @@ class Home extends Component {
     }
 
     _onScroll = (e) => {
+        console.log(1)
         if (e.nativeEvent.contentOffset.y > 200) {
-            this.props.typeList.changeHomeTitle(Date.now())
             this.props.typeList.changeFlag(true)
         } else {
             this.props.typeList.changeHomeTitle('首页')

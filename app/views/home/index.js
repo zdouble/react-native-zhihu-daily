@@ -62,7 +62,6 @@ class Home extends Component {
     }
 
     _onScroll = (e) => {
-        console.log(1)
         if (e.nativeEvent.contentOffset.y > 200) {
             this.props.typeList.changeFlag(true)
         } else {

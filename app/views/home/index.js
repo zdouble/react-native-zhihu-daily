@@ -98,7 +98,7 @@ class Home extends Component {
 
         let title = typeList.homeTitle ? typeList.homeTitle : typeList.currentName
         if (typeList.flag) {
-            let x = moment(typeList.homeTitle).format('MM月DD日 dddd')
+            let x = typeList.homeTitle === '首页' ? typeList.homeTitle : moment(typeList.homeTitle).format('MM月DD日 dddd')
             if (moment(Date.now()).format('MM月DD日 dddd') === x) {
                 title = '今日热闻'
             } else {

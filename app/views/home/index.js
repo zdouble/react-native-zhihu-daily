@@ -27,6 +27,7 @@ let dateNow = new Date()
 class Home extends Component {
     componentDidMount() {
         this.props.articleList.fetchData()
+        this.props.typeList.selectType(0, '首页')
     }
 
     _onRefresh = () => {

@@ -7,9 +7,12 @@ import {
 } from 'react-native'
 
 class Header extends Component {
+    // setNativeProps(value) {
+    //     this.test.setNativeProps(value)
+    // }
     render() {
         return (
-            <View style={[styles.container, this.props.style]}>
+            <View ref={ref => (this.header = ref) } style={[styles.container, this.props.style]}>
                 <View style={{ paddingLeft: 10 }}>
                     {this.props.renderLeft && this.props.renderLeft()}
                 </View>
